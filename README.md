@@ -1,24 +1,8 @@
 # pytorch-retinanet
 
-![img3](https://github.com/yhenon/pytorch-retinanet/blob/master/images/3.jpg)
-![img5](https://github.com/yhenon/pytorch-retinanet/blob/master/images/5.jpg)
 
-Pytorch  implementation of RetinaNet object detection as described in [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002) by Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He and Piotr Dollár.
 
-This implementation is primarily designed to be easy to read and simple to modify.
 
-## Results
-Currently, this repo achieves 33.5% mAP at 600px resolution with a Resnet-50 backbone. The published result is 34.0% mAP. The difference is likely due to the use of Adam optimizer instead of SGD with weight decay.
-
-## Installation
-
-1) Clone this repo
-
-2) Install the required packages:
-
-```
-apt-get install tk-dev python-tk
-```
 
 3) Install the python packages:
 	
@@ -34,9 +18,7 @@ pip install requests
 
 The network can be trained using the `train.py` script. Currently, two dataloaders are available: COCO and CSV. For training on coco, use
 
-```
-python train.py --dataset coco --coco_path ../coco --depth 50
-```
+
 
 For training using a custom dataset, with annotations in CSV format (see below), use
 
@@ -46,41 +28,6 @@ python train.py --dataset csv --csv_train <path/to/train_annots.csv>  --csv_clas
 
 Note that the --csv_val argument is optional, in which case no validation will be performed.
 
-## Pre-trained model
-
-A pre-trained model is available at: 
-- https://drive.google.com/open?id=1yLmjq3JtXi841yXWBxst0coAgR26MNBS (this is a pytorch state dict)
-
-The state dict model can be loaded using:
-
-```
-retinanet = model.resnet50(num_classes=dataset_train.num_classes(),)
-retinanet.load_state_dict(torch.load(PATH_TO_WEIGHTS))
-```
-
-## Validation
-
-Run `coco_validation.py` to validate the code on the COCO dataset. With the above model, run:
-
-`python coco_validation.py --coco_path ~/path/to/coco --model_path /path/to/model/coco_resnet_50_map_0_335_state_dict.pt`
-
-
-This produces the following results:
-
-```
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.335
- Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.499
- Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.357
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.167
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.369
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.466
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.282
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.429
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.458
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.255
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.508
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.597
-```
 
 For CSV Datasets (more info on those below), run the following script to validate:
 
@@ -100,6 +47,8 @@ Recall:  ...
 
 You can also configure csv_eval.py script to save the precision-recall curve on disk.
 
+## creating csv annotations
+retinanet_ann.py is the code to generate csv annotation files in the format described below. The arguments required are actual coco annotations path and generates the required csv annotations files.
 
 
 ## Visualization
