@@ -48,8 +48,9 @@ Recall:  ...
 You can also configure csv_eval.py script to save the precision-recall curve on disk.
 
 ## creating csv annotations
-retinanet_ann.py is the code to generate csv annotation files in the format described below. The arguments required are actual coco annotations path and generates the required csv annotations files.
+retinanet_ann.py is the code to generate csv annotation files in the format described below. The arguments required are actual coco annotations path, train images directory path and validation images directory path. The file generates the required csv annotations files.
 
+I divided total images in the dataset into two sets, train and validation and moved those images into their respective directories before generating csv annotation files.
 
 ## Visualization
 
@@ -90,16 +91,15 @@ path/to/image.jpg,,,,,
 
 A full example:
 ```
-/data/imgs/img_001.jpg,837,346,981,456,cow
-/data/imgs/img_002.jpg,215,312,279,391,cat
-/data/imgs/img_002.jpg,22,5,89,84,bird
-/data/imgs/img_003.jpg,,,,,
+/home/vijay_kumar/test/trainval/images/train/image_000000001.jpg,837,346,981,456,person
+/home/vijay_kumar/test/trainval/images/train/image_000000002.jpg,215,312,279,391,car
+/home/vijay_kumar/test/trainval/images/train/image_000000002.jpg,22,5,89,84,person
 ```
 
 This defines a dataset with 3 images.
-`img_001.jpg` contains a cow.
-`img_002.jpg` contains a cat and a bird.
-`img_003.jpg` contains no interesting objects/animals.
+`image_000000001.jpg` contains a person.
+`image_000000002.jpg` contains a car and a person.
+
 
 
 ### Class mapping format
@@ -114,9 +114,8 @@ Do not include a background class as it is implicit.
 
 For example:
 ```
-cow,0
-cat,1
-bird,2
+person,0
+car,1
 ```
 
 ## Acknowledgements
